@@ -24,7 +24,10 @@ Design and implement a fully automated workflow to:
 - Workflow triggers automatically on:
   - New rows added.
   - Existing rows updated.
-    
+
+**Screenshot: Lead Data in Google Sheet**  
+<img width="1387" height="199" alt="image" src="https://github.com/user-attachments/assets/70f91744-b14b-424b-b702-53b186673f70" />
+
 ---
 
 ### Step 2: Domain Name Extraction
@@ -32,6 +35,9 @@ For each lead:
 - Use domain from the data if available.
 - Otherwise, extract domain from email or website.
 - If domain is missing, log the issue in an **Error Logs** tab.
+
+**Screenshot: Error Logs Example**  
+<img width="1797" height="190" alt="image" src="https://github.com/user-attachments/assets/eff9cb5c-4600-4919-a2d6-cade8caa0452" />
 
 ---
 
@@ -42,7 +48,7 @@ For each lead:
 - Save the summary in the Google Sheet.
 
 **Screenshot: Business Summary in Sheet**  
-![Business Summary](./screenshots/business_summary.png)
+<img width="1568" height="190" alt="image" src="https://github.com/user-attachments/assets/9607b133-b6fd-4e05-b4cf-d74252a1a6c6" />
 
 ---
 
@@ -55,7 +61,7 @@ For each lead:
 - Store HTML content in the Google Sheet.
 
 **Screenshot: HTML Email Preview**  
-![HTML Email Preview](./screenshots/email_preview.png)
+<img width="1696" height="187" alt="image" src="https://github.com/user-attachments/assets/fbf4db2c-9b94-425b-be90-374e0ed7a043" />
 
 ---
 
