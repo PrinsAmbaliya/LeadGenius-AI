@@ -65,20 +65,6 @@ For each lead:
 
 ---
 
-## 🧪 Deliverables
-1. **Workflow JSON file**: Exported from n8n automation tool.  
-   - [workflow.json](./workflow.json)
-
-2. **API Pricing & Justification Document**  
-   - List of APIs used (free and paid).
-   - Comparison and justification for any paid APIs.
-   - Suggested plan and cost.
-
-3. **Walkthrough Video (3–6 min)**  
-   - Demonstrates lead fetching, workflow execution, and email generation.  
-   - [Walkthrough Video](./walkthrough.mp4)
-
----
 
 ## 📎 Constraints
 - Use **free APIs only** wherever possible.
