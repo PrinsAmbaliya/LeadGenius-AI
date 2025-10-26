@@ -78,3 +78,13 @@ For each lead:
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/lead-generation-workflow.git
+2. Import the workflow JSON into n8n.
+3. Set up Google Sheets API credentials.
+4. Run the workflow or trigger by adding/updating leads.
+5. Check the Google Sheet for processed summaries and HTML emails.
+
+---
+
+Author: Prins Ambaliya
+Email: prins.ambaliya120064@marwadiuniversity.ac.in
+Project: AI-Powered Lead Generation & Outreach Workflow
