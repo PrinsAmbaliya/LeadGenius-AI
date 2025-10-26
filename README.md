@@ -24,10 +24,7 @@ Design and implement a fully automated workflow to:
 - Workflow triggers automatically on:
   - New rows added.
   - Existing rows updated.
-
-**Screenshot: Lead Data in Google Sheet**  
-![Leads Sheet](./screenshots/leads_sheet.png)
-
+    
 ---
 
 ### Step 2: Domain Name Extraction
