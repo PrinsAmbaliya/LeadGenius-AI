@@ -1,0 +1,934 @@
+{
+  "name": "E2M",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        -80
+      ],
+      "id": "2676211c-a956-4fd0-909c-a9dedef072d1",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.apify.com/v2/datasets/tpuO3DbFRO68gQ9Qd/items?token=apify_api_vOzR12lwv9mUe7nyQf76JNTzR0ryZT3QDJnt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -384,
+        -80
+      ],
+      "id": "2f2c72a7-402e-4047-8d1e-23c9ae21b9ff",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.name }}",
+            "WebURL": "={{ $json.weburl }}",
+            "Email": "={{ $json.email }}",
+            "URL": "={{ $json.url }}",
+            "Domain": "={{ $json.domain }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WebURL",
+              "displayName": "WebURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Domain",
+              "displayName": "Domain",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email_HTML",
+              "displayName": "Email_HTML",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Total Leads",
+              "displayName": "Total Leads",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Processed",
+              "displayName": "Processed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Skipped",
+              "displayName": "Skipped",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -176,
+        -80
+      ],
+      "id": "b6c02283-3e3f-41ed-8167-9dadb489b625",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gyVhCU1KdkLfUP9d",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "outputs = []\n\ndef clean_domain(url):\n    \"\"\"Extract valid domain (e.g., example.com) from a URL string.\"\"\"\n    if not url:\n        return \"\"\n    url = str(url).strip().lower()\n    url = url.replace(\"http://\", \"\").replace(\"https://\", \"\").replace(\"www.\", \"\")\n    domain = url.split(\"/\")[0].split(\"?\")[0]\n    parts = domain.split(\".\")\n    if len(parts) >= 2 and all(parts):\n        tld = parts[-1]\n        if len(tld) >= 2 and tld.isalpha():\n            return domain\n    return \"\"\n\nfor item in _items:\n    data = item.get(\"json\", {})\n    \n    email = data.get(\"Email\", \"\")\n    weburl = data.get(\"WebURL\", \"\")\n    domain = data.get(\"Domain\", \"\")\n\n    extracted_domains = []\n\n    # Step 1: Existing domain\n    if domain:\n        d = clean_domain(domain)\n        if d:\n            extracted_domains.append(d)\n\n    # Step 2: From email\n    if email and \"@\" in email:\n        d = clean_domain(email.split(\"@\")[-1])\n        if d and d not in extracted_domains:\n            extracted_domains.append(d)\n\n    # Step 3: From WebURL(s)\n    if weburl:\n        urls = [u.strip() for u in str(weburl).split(\",\") if u.strip()]\n        for u in urls:\n            d = clean_domain(u)\n            if d and d not in extracted_domains:\n                extracted_domains.append(d)\n\n    # Step 4: If nothing valid → mark as error\n    if not extracted_domains:\n        data[\"Error\"] = \"No valid domain found\"\n        data[\"Domain\"] = \"\"\n        data[\"URL\"] = None\n        outputs.append({\"json\": data})\n        continue\n\n    # Step 5: Valid domain → ready for HTTP Request\n    for d in extracted_domains:\n        new_row = dict(data)\n        new_row[\"Domain\"] = d\n        new_row[\"URL\"] = f\"https://{d}\"\n        new_row[\"Error\"] = \"\"\n        outputs.append({\"json\": new_row})\n\nreturn outputs\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        176
+      ],
+      "id": "3668b151-0899-47ae-a3be-95354404674f",
+      "name": "Code in Python (Native) (Beta)"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Email": "={{ $json.Email }}",
+            "WebURL": "={{ $json.WebURL }}",
+            "URL": "={{ $json.URL }}",
+            "Domain": "={{ $json.Domain }}",
+            "Error": "={{ $json.Error }}"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WebURL",
+              "displayName": "WebURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Domain",
+              "displayName": "Domain",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email_HTML",
+              "displayName": "Email_HTML",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Total Leads",
+              "displayName": "Total Leads",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Processed",
+              "displayName": "Processed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Skipped",
+              "displayName": "Skipped",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -192,
+        176
+      ],
+      "id": "dd1e5680-94d3-4148-821d-869c24e611e4",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mLQ7CbKusPI7qnt6",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "80e4d06a-ae4c-4b79-ac84-d2de71eec2d4",
+              "leftValue": "={{ $json.Domain }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        16,
+        176
+      ],
+      "id": "7a392ebb-9ddd-4839-b356-66993231fb64",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json[\"URL\"] || $json[\"Domain\"] || \"\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            },
+            {
+              "name": "User-Agent",
+              "value": "AppleWebKit/537.36 (KHTML, like Gecko)"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Chrome/120.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          },
+          "timeout": 120000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        512,
+        160
+      ],
+      "id": "17d959e2-2427-44a1-b25f-a023b8191e93",
+      "name": "HTTP Request1",
+      "retryOnFail": true,
+      "waitBetweenTries": 2000,
+      "alwaysOutputData": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "outputs = []\n\nfor item in _items:\n    data = item.get(\"json\", {})\n    \n    try:\n        print(\"Input JSON:\", json.dumps(data, indent=2))\n    except Exception as e:\n        print(\"Debug JSON Error:\", str(e)[:100])\n    \n    url = (\n        str(data.get(\"URL\") or \"\").strip().lower() or\n        str(data.get(\"WebURL\") or \"\").strip().lower() or\n        str(data.get(\"website\") or \"\").strip().lower() or\n        str(data.get(\"Website\") or \"\").strip().lower() or\n        str(data.get(\"url\") or \"\").strip().lower() or\n        str(data.get(\"URLs\") or \"\").strip().lower()\n    )\n    domain = (\n        str(data.get(\"Domain\") or \"\").strip().lower() or\n        str(data.get(\"domain\") or \"\").strip().lower() or\n        url\n    )\n    email = (\n        str(data.get(\"email\") or \"\").strip().lower() or\n        str(data.get(\"Email\") or \"\").strip().lower()\n    )\n    name = str(data.get(\"Name\") or \"This company\").strip()\n    summary = \"\"\n    error = \"\"\n\n    possible_urls = []\n    if url:\n        possible_urls = [u.strip() for u in url.split(\",\") if u.strip()]\n    if not possible_urls and domain:\n        possible_urls = [domain]\n\n    if not domain:\n        if email and '@' in email:\n            domain = email.split('@')[-1].strip()\n        elif possible_urls:\n            parsed = urlparse(possible_urls[0] if possible_urls[0].startswith('http') else f\"https://{possible_urls[0]}\")\n            domain = parsed.hostname.replace('www.', '').strip() if parsed.hostname else \"\"\n        if not domain:\n            summary = f\"{name} appears to be a business, but no website content was accessible.\"\n            error = \"No domain, email, or URL found to extract from.\"\n            data[\"Summary\"] = summary\n            data[\"Error\"] = error\n            data[\"URL\"] = \"\"\n            outputs.append({\"json\": data})\n            continue\n\n    data[\"Domain\"] = domain\n    selected_url = possible_urls[0] if possible_urls else f\"https://{domain}\"\n\n    website_content = data.get(\"websiteContent\", \"\")\n    error = data.get(\"error\", \"\")\n\n    try:\n        if website_content and not error:\n            soup = BeautifulSoup(website_content, \"html.parser\")\n            text = \" \".join(soup.stripped_strings)\n            text = \" \".join(text.split())[:4000]\n            if len(text) >= 50:\n                sentences = text.split(\".\")\n                summary = \". \".join(sentences[:3]).strip() + \".\"\n                if len(summary) < 40:\n                    summary = f\"{name} offers services in digital marketing, SEO, or technology.\"\n            else:\n                error = error or \"Website content too short\"\n                summary = f\"{name} offers services, but the website lacks sufficient content.\"\n        else:\n            error = error or \"No website content provided by HTTP Request\"\n            summary = f\"{name} website could not be reached or lacks sufficient content.\"\n    except Exception as e:\n        error = error or f\"Error processing content: {str(e)[:100]}\"\n        summary = f\"{name} website could not be reached or lacks sufficient content.\"\n\n    data[\"URL\"] = selected_url\n    data[\"Summary\"] = summary\n    data[\"Error\"] = error\n    outputs.append({\"json\": data})\n\nreturn outputs"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        160
+      ],
+      "id": "8cd64fa8-19e9-4b14-aa1d-830d541dba9a",
+      "name": "Code in Python (Native) (Beta)1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iStgn-uFu7GSXIhyKg2CC8BgPzP-zYpfMWHhwz6dPaA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Error": "={{ $json.Error }}"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WebURL",
+              "displayName": "WebURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Domain",
+              "displayName": "Domain",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email_HTML",
+              "displayName": "Email_HTML",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        256,
+        384
+      ],
+      "id": "d7451632-fa26-44b0-8a04-a4cc1a2870c8",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mLQ7CbKusPI7qnt6",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iStgn-uFu7GSXIhyKg2CC8BgPzP-zYpfMWHhwz6dPaA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Domain": "={{ $('If').item.json.Domain }}",
+            "Email": "={{ $('If').item.json.Email }}",
+            "WebURL": "={{ $('If').item.json.WebURL }}",
+            "URL": "={{ $('If').item.json.URL }}",
+            "Summary": "={{ $json.Summary }}",
+            "Email_HTML": "={{ $json.Email_HTML }}"
+          },
+          "matchingColumns": [
+            "Domain"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WebURL",
+              "displayName": "WebURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Domain",
+              "displayName": "Domain",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email_HTML",
+              "displayName": "Email_HTML",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1136,
+        160
+      ],
+      "id": "55b4329b-395c-4a92-b0d6-21ec66fcbbcd",
+      "name": "Update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mLQ7CbKusPI7qnt6",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        272,
+        -32
+      ],
+      "id": "3587574f-68c7-4cd7-a2c8-e002727d5db1",
+      "name": "Wait",
+      "webhookId": "553fa9ab-98fb-4b9e-9fae-838054d7fc3d"
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "outputs = []\n\nfor item in _items:\n    data = item.get(\"json\", {})\n    name = data.get(\"Name\", \"there\")\n    summary = data.get(\"Summary\", \"We love your business!\")\n\n    html_email = f\"\"\"\n    <html>\n    <body>\n        <h2>Hello {name},</h2>\n        <p>We came across your company and here's a quick note about your business:</p>\n        <blockquote>{summary}</blockquote>\n        <p>We believe our solutions can help you grow further.</p>\n        <a href='https://example.com' style='padding:10px 15px; background-color:#4CAF50; color:white; text-decoration:none;'>Learn More</a>\n    </body>\n    </html>\n    \"\"\"\n\n    data[\"Email_HTML\"] = html_email\n    outputs.append({\"json\": data})\n\nreturn outputs\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        928,
+        160
+      ],
+      "id": "075dd28f-7f2e-4261-893c-4d118a75c8c1",
+      "name": "Code in Python (Native) (Beta)2"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k4YAb8kvpi6PY1QLqcGATfyrPnLIl9ANWp2mS7bWYqw/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        176
+      ],
+      "id": "cb8f6121-da06-41ef-844b-1a80ef3c5df7",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "3cOin1NOUapBeODE",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in Python (Native) (Beta)": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Code in Python (Native) (Beta)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in Python (Native) (Beta)1": {
+      "main": [
+        [
+          {
+            "node": "Code in Python (Native) (Beta)2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet2": {
+      "main": [
+        []
+      ]
+    },
+    "Code in Python (Native) (Beta)2": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in Python (Native) (Beta)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "vGYGeXUwHOms3qXd"
+  },
+  "versionId": "a614713a-6316-42aa-926f-ed49e8670538",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fc56740907a0324af8b31972cee229492aa9d3be98ef0858981908f526f982e8"
+  },
+  "id": "vGYGeXUwHOms3qXd",
+  "tags": []
+}
