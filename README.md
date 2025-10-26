@@ -86,5 +86,7 @@ For each lead:
 ---
 
 Author: Prins Ambaliya
-Email: prins.ambaliya120064@marwadiuniversity.ac.in
+
+Email: prinsambaliya66@gmail.com
+
 Project: AI-Powered Lead Generation & Outreach Workflow
