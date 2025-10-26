@@ -36,9 +36,6 @@ For each lead:
 - Otherwise, extract domain from email or website.
 - If domain is missing, log the issue in an **Error Logs** tab.
 
-**Screenshot: Error Logs Example**  
-![Error Logs](./screenshots/error_logs.png)
-
 ---
 
 ### Step 3: Website Content Scraping & Summarization
