@@ -65,26 +65,6 @@ For each lead:
 
 ---
 
-
-## 📎 Constraints
-- Use **free APIs only** wherever possible.
-- Document API choices and justifications.
-- Workflow is clean, modular, and properly labeled.
-
----
-
-## 💡 Bonus Features
-- Basic error handling with logs.
-- Summary tab to track:
-  - Total leads processed.
-  - Leads skipped.
-  - Completed leads.
-
-**Screenshot: Summary Tab**  
-![Summary Tab](./screenshots/summary_tab.png)
-
----
-
 ## ⚡ Tech Stack
 - **n8n**: Automation tool.
 - **Apify API**: Fetch leads.
