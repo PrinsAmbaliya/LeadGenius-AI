@@ -1,13 +1,13 @@
 # AI-Powered Lead Generation & Outreach Workflow 🚀
 
-## 🧠 Problem Statement
+## Problem Statement
 **Lead Generation Outreach Workflow for E2M**  
 
 This project automates the process of fetching company leads, enriching them with online data, summarizing their websites, and generating personalized HTML outreach emails using AI.
 
 ---
 
-## 📌 Objective
+## Objective
 Design and implement a fully automated workflow to:
 - Fetch leads using the Apify API.
 - Enrich and summarize company data.
@@ -16,7 +16,7 @@ Design and implement a fully automated workflow to:
 
 ---
 
-## 🎯 Workflow Steps
+## Workflow Steps
 
 ### Step 1: Lead Data Ingestion & Trigger Setup
 - Fetch **100–500 leads** using the [Apify API](https://apify.com/).
@@ -65,7 +65,7 @@ For each lead:
 
 ---
 
-## ⚡ Tech Stack
+## Tech Stack
 - **n8n**: Automation tool.
 - **Apify API**: Fetch leads.
 - **Google Sheets API**: Store and manage leads.
@@ -74,7 +74,7 @@ For each lead:
 
 ---
 
-## 📌 Usage Instructions
+## Usage Instructions
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/lead-generation-workflow.git
@@ -85,8 +85,10 @@ For each lead:
 
 ---
 
-Author: Prins Ambaliya
+## Author
 
-Email: prinsambaliya66@gmail.com
+Prins Ambaliya
 
-Project: AI-Powered Lead Generation & Outreach Workflow
+GitHub: PrinsAmbaliya
+
+LinkedIn: https://www.linkedin.com/in/prins-ambaliya-bb7546367
